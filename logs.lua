@@ -29,7 +29,7 @@ if enable_autoupdate then
     if updater_loaded then
         autoupdate_loaded, Update = pcall(Updater)
         if autoupdate_loaded then
-            Update.json_url = "https://drive.google.com/file/d/1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G/view?usp=sharing?" .. tostring(os.clock())
+            Update.json_url = "https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/logs.lua?" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
             Update.url = "hhttps://github.com/chibbo303/jeffersonbot"
         end
@@ -61,7 +61,7 @@ function main()
 	 if autoupdate_loaded and enable_autoupdate and Update then
         pcall(Update.check, Update.json_url, Update.prefix, Update.url)
     end
-    tag("Скрипт успешно запущен | Текущая версия 1.9")
+    tag("Скрипт успешно запущен | Текущая версия 2.0")
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
