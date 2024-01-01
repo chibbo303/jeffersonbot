@@ -29,7 +29,7 @@ if enable_autoupdate then
     if updater_loaded then
         autoupdate_loaded, Update = pcall(Updater)
         if autoupdate_loaded then
-            Update.json_url = "https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json?" .. tostring(os.clock())
+            Update.json_url = "https://drive.google.com/file/d/1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G/view?usp=sharing?" .. tostring(os.clock())
             Update.prefix = "[" .. string.upper(thisScript().name) .. "]: "
             Update.url = "hhttps://github.com/chibbo303/jeffersonbot"
         end
