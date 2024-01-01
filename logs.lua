@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.8")
+script_version("1.9")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -101,10 +101,10 @@ function ev.onServerMessage(color, text)
         sendDiscord("unblacklist", self.nick, text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока (.+)%. Причина%: .+"), text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока .+%. Причина%: (.+)"))
     end
 	if text:find("Вы понизили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankponiz", self.nick, text:match("Вы понизили игрока .+ до .+ ранга"))
+        sendDiscord("rankponiz", self.nick, text:match("Вы понизили игрока .+ до .+-го ранга"))
     end
 	if text:find("Вы повысили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+ ранга"))
+        sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+-го ранга"))
 	end
 end
 
