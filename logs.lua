@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.5")
+script_version("1.6")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
