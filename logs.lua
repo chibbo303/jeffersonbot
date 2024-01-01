@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.2")
+script_version("1.3")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -45,7 +45,7 @@ function main()
 	 if autoupdate_loaded and enable_autoupdate and Update then
         pcall(Update.check, Update.json_url, Update.prefix, Update.url)
     end
-    tag("Скрипт успешно запущен | Текущая версия 1.2")
+    tag("Скрипт успешно запущен | Текущая версия 1.3")
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
