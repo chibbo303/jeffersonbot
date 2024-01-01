@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.1")
+script_version("1.2")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -41,11 +41,11 @@ log_url = "https://discord.com/api/webhooks/1181292045814485042/kNLnxnWfouy-0DFq
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ', "https://vk.com/id186266877")
+	autoupdate("https://drive.google.com/u/0/uc?id=1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G&export=download", '['..string.upper(thisScript().name)..']: ', "https://vk.com/id186266877")
 	 if autoupdate_loaded and enable_autoupdate and Update then
         pcall(Update.check, Update.json_url, Update.prefix, Update.url)
     end
-    tag("Скрипт успешно запущен | Текущая версия 1.1")
+    tag("Скрипт успешно запущен | Текущая версия 1.2")
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
