@@ -61,7 +61,7 @@ function main()
 	 if autoupdate_loaded and enable_autoupdate and Update then
         pcall(Update.check, Update.json_url, Update.prefix, Update.url)
     end
-    tag("Скрипт успешно запущен | Текущая версия 1.8")
+    tag("Скрипт успешно запущен | Текущая версия 1.9")
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
