@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.4")
+script_version("1.5")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -44,8 +44,8 @@ nazvanie = 'Jefferson Bot'
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.4")
-	--autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.5")
+	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
