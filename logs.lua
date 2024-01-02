@@ -46,6 +46,7 @@ function main()
     while not isSampAvailable() do wait(100) end
     tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.2")
 	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
+	--autoupdate("https://drive.usercontent.google.com/download?id=1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G&export=download&authuser=0&confirm=t&uuid=985e82a3-69f0-4fc2-904b-a89369b48196&at=APZUnTV1nJ33DWt_0IbUZMqr37fw:1704181967897", '['..string.upper(thisScript().name)..']: ')
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
