@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.3")
+script_version("1.4")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -37,14 +37,15 @@ local u8 = encoding.UTF8
 --<<
 
 log_url = "https://discord.com/api/webhooks/1181292045814485042/kNLnxnWfouy-0DFqXGb3jnL29bCL56-38a-erhnaRxBGes5uRW-38BnKMiV3V3BqeT-B"
-colorcm = '{007470}'
-colorcm2 = '{23ca4c}'
+colorcm = '{04a6ff}'
+colorcm2 = '{04a6ff}'
+nazvanie = 'Jefferson Bot'
 
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.3")
-	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.4")
+	--autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
@@ -84,10 +85,10 @@ function ev.onServerMessage(color, text)
         sendDiscord("unblacklist", self.nick, text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока (.+)%. Причина%: .+"), text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока .+%. Причина%: (.+)"))
     end
 	if text:find("Вы понизили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankponiz", self.nick, text:match("Вы понизил игрока .+ до .+-го ранга"))
+        sendDiscord("rankponiz", self.nick, text:match("Вы понизили игрока .+ до .+ ранга"))
     end
 	if text:find("Вы повысили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankpovis", self.nick, text:match("Вы повысил игрока .+ до .+-го ранга"))
+        sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+ ранга"))
 	end
 end
 
@@ -294,7 +295,7 @@ function autoupdate(json_url, prefix, url)
               lua_thread.create(function(prefix)
                 local dlstatus = require('moonloader').download_status
                 local color = -1
-                sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
+                sampAddChatMessage((""..colorcm.."["..nazvanie.v.."]{FFFFFF} Доступно новое обновление! Пытаюсь обновиться c "..colorcm2..""..thisScript().version.." {FFFFFF}на "..colorcm2..""..updateversion), -1)
                 wait(250)
                 downloadUrlToFile(updatelink, thisScript().path,
                   function(id3, status1, p13, p23)
@@ -308,7 +309,7 @@ function autoupdate(json_url, prefix, url)
                     end
                     if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
                       if goupdatestatus == nil then
-                        sampAddChatMessage((prefix..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
+                        sampAddChatMessage((''..colorcm..'['..nazvanie.v..']{FFFFFF} Не удалось обновить скрипт! Обратитесь к автору скрипта.'), -1)
                         update = false
                       end
                     end
