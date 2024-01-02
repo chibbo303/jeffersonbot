@@ -41,11 +41,8 @@ log_url = "https://discord.com/api/webhooks/1181292045814485042/kNLnxnWfouy-0DFq
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-	autoupdate("https://drive.google.com/u/0/uc?id=1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G&export=download", '['..string.upper(thisScript().name)..']: ', "https://vk.com/id186266877")
-	 if autoupdate_loaded and enable_autoupdate and Update then
-        pcall(Update.check, Update.json_url, Update.prefix, Update.url)
-    end
-    tag("Скрипт успешно запущен | Текущая версия 1.3")
+	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.3")
     while true do
         wait(0)
         id = select(2, sampGetPlayerIdByCharHandle(playerPed))
@@ -85,10 +82,10 @@ function ev.onServerMessage(color, text)
         sendDiscord("unblacklist", self.nick, text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока (.+)%. Причина%: .+"), text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока .+%. Причина%: (.+)"))
     end
 	if text:find("Вы понизили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankponiz", self.nick, text:match("Вы понизил игрока .+ до .+-го ранга"))
+        sendDiscord("rankponiz", self.nick, text:match("Вы понизили игрока .+ до .+ ранга"))
     end
 	if text:find("Вы повысили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankpovis", self.nick, text:match("Вы повысил игрока .+ до .+-го ранга"))
+        sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+ ранга"))
 	end
 end
 
@@ -234,62 +231,6 @@ function sendDiscord(type, nick_first, nick_second, reason)
     asyncHttpRequest('POST', log_url, {headers = {['content-type'] = 'application/json'}, data = u8(encodeJson(data))})
 end
 
-function autoupdate(json_url, prefix, url)
-  local dlstatus = require('moonloader').download_status
-  local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
-  if doesFileExist(json) then os.remove(json) end
-  downloadUrlToFile(json_url, json,
-    function(id, status, p1, p2)
-      if status == dlstatus.STATUSEX_ENDDOWNLOAD then
-        if doesFileExist(json) then
-          local f = io.open(json, 'r')
-          if f then
-            local info = decodeJson(f:read('*a'))
-            updatelink = info.updateurl
-            updateversion = info.latest
-            f:close()
-            os.remove(json)
-            if updateversion ~= thisScript().version then
-              lua_thread.create(function(prefix)
-                local dlstatus = require('moonloader').download_status
-                local color = -1
-                sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
-                wait(250)
-                downloadUrlToFile(updatelink, thisScript().path,
-                  function(id3, status1, p13, p23)
-                    if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
-                      print(string.format('Загружено %d из %d.', p13, p23))
-                    elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-                      print('Загрузка обновления завершена.')
-                      sampAddChatMessage((prefix..'Обновление завершено!'), color)
-                      goupdatestatus = true
-                      lua_thread.create(function() wait(500) thisScript():reload() end)
-                    end
-                    if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
-                      if goupdatestatus == nil then
-                        sampAddChatMessage((prefix..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
-                        update = false
-                      end
-                    end
-                  end
-                )
-                end, prefix
-              )
-            else
-              update = false
-              print('v'..thisScript().version..': Обновление не требуется.')
-            end
-          end
-        else
-          print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
-          update = false
-        end
-      end
-    end
-  )
-  while update ~= false do wait(100) end
-end
-
 function asyncHttpRequest(method, urlchat, args, resolve, reject)
     local request_thread = effil.thread(function(method, urlds, args)
       local requests = require"requests"
@@ -330,4 +271,58 @@ function asyncHttpRequest(method, urlchat, args, resolve, reject)
         wait(0)
       end
     end)
+end
+
+function autoupdate(json_url, prefix, url)
+  local dlstatus = require('moonloader').download_status
+  local json = getWorkingDirectory() .. '\\'..thisScript().name..'-version.json'
+  if doesFileExist(json) then os.remove(json) end
+  downloadUrlToFile(json_url, json,
+    function(id, status, p1, p2)
+      if status == dlstatus.STATUSEX_ENDDOWNLOAD then
+        if doesFileExist(json) then
+          local f = io.open(json, 'r')
+          if f then
+            local info = decodeJson(f:read('*a'))
+            updatelink = info.updateurl
+            updateversion = info.latest
+            f:close()
+            os.remove(json)
+            if updateversion ~= thisScript().version then
+              lua_thread.create(function(prefix)
+                local dlstatus = require('moonloader').download_status
+                local color = -1
+                sampAddChatMessage((""..colorcm.."["..nazvanie.v.."]{FFFFFF} Доступно новое обновление! Пытаюсь обновиться c "..colorcm2..""..thisScript().version.." {FFFFFF}на "..colorcm2..""..updateversion), -1)
+                wait(250)
+                downloadUrlToFile(updatelink, thisScript().path,
+                  function(id3, status1, p13, p23)
+                    if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
+                    elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
+                      sampAddChatMessage((''..colorcm..'['..nazvanie.v..']{FFFFFF} Скрипт успешно обновлён.'), -1)
+                      goupdatestatus = true
+					  updatetext.v = true 
+					  saveSettings()
+                      lua_thread.create(function() wait(500) thisScript():reload() end)
+                    end
+                    if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
+                      if goupdatestatus == nil then
+                        sampAddChatMessage((''..colorcm..'['..nazvanie.v..']{FFFFFF} Не удалось обновить скрипт! Обратитесь к автору скрипта.'), -1)
+                        update = false
+                      end
+                    end
+                  end
+                )
+                end, prefix
+              )
+            else
+              update = false
+            end
+          end
+        else
+          update = false
+        end
+      end
+    end
+  )
+  while update ~= false do wait(100) end
 end
