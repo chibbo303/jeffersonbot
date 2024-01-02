@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.6")
+script_version("1.2")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -44,7 +44,7 @@ nazvanie = 'Jefferson Bot'
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.6")
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.2")
 	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
     while true do
         wait(0)
@@ -295,7 +295,7 @@ function autoupdate(json_url, prefix, url)
               lua_thread.create(function(prefix)
                 local dlstatus = require('moonloader').download_status
                 local color = -1
-                sampAddChatMessage((""..colorcm.."["..nazvanie.v.."]{FFFFFF} Доступно новое обновление! Пытаюсь обновиться c "..colorcm2..""..thisScript().version.." {FFFFFF}на "..colorcm2..""..updateversion), -1)
+                sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
                 wait(250)
                 downloadUrlToFile(updatelink, thisScript().path,
                   function(id3, status1, p13, p23)
@@ -309,7 +309,7 @@ function autoupdate(json_url, prefix, url)
                     end
                     if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
                       if goupdatestatus == nil then
-                        sampAddChatMessage((''..colorcm..'['..nazvanie.v..']{FFFFFF} Не удалось обновить скрипт! Обратитесь к автору скрипта.'), -1)
+                        print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
                         update = false
                       end
                     end
