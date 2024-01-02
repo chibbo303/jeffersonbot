@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.2")
+script_version("1.3")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -43,7 +43,7 @@ colorcm2 = '{23ca4c}'
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.2")
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.3")
 	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
     while true do
         wait(0)
