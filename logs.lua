@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.2.2")
+script_version("1.3")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -41,6 +41,8 @@ local u8 = encoding.UTF8
 --<<
 
 log_url = "https://discord.com/api/webhooks/1193229361864769596/XOq7tAyaG7NbV4LxXUTkYhMgCiABUwJEjlrPFzD8_7BIOI30Eoxx9cANDFQzTopcEugn"
+--log_url = "https://discord.com/api/webhooks/1193206661645611058/lDquUIV-YRBWOuJcwDMDj7RYeo0ciGTf1kw5eTA602h1OVnF2zjr0rRblixa7tZgajGp" --DEBUG URL
+
 colorcm = '{04a6ff}'
 colorcm2 = '{04a6ff}'
 nazvanie = 'Jefferson Bot'
@@ -48,8 +50,11 @@ nazvanie = 'Jefferson Bot'
 function main()
     if not isSampLoaded()  then return end
     while not isSampAvailable() do wait(100) end
-    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.2.2")
-	tag2("Авторы скрипта: {04a6ff}Alan Butler, Lana Rey")
+	--Команды
+	 
+	----
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.3")
+	tag2("Авторы скрипта: {04a6ff}Alan Butler, Elizabeth Bathory")
 	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
 	--autoupdate("https://drive.usercontent.google.com/download?id=1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G&export=download&authuser=0&confirm=t&uuid=985e82a3-69f0-4fc2-904b-a89369b48196&at=APZUnTV1nJ33DWt_0IbUZMqr37fw:1704181967897", '['..string.upper(thisScript().name)..']: ')
     while true do
@@ -90,11 +95,20 @@ function ev.onServerMessage(color, text)
 	if text:find(".+%[%d+%] вынес из Чёрного Списка закона игрока .+%. Причина%: .+") and text:match("(.+)%[%d+%] вынес из Чёрного Списка закона игрока .+%. Причина%: .+") == self.nick then
         sendDiscord("unblacklist", self.nick, text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока (.+)%. Причина%: .+"), text:match(".+%[%d+%] вынес из Чёрного Списка закона игрока .+%. Причина%: (.+)"))
     end
-	if text:find("Вы понизили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга
-        sendDiscord("rankponiz", self.nick, text:match("Вы понизили игрока .+ до .+ го ранга"))
+	if text:find("Вы понизили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
+        sendDiscord("rankponiz", self.nick, text:match("Вы понизили игрока .+ до .+ ранга"))
     end
-	if text:find("Вы повысили игрока .+ до .+-го ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга
-        sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+ го ранга"))
+	if text:find("Вы повысили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
+        sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+ ранга"))
+	end
+	if text:find("Вы понизили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
+        sendDiscord("rankponizmembers", self.nick, text:match("Вы понизили игрока .+ до .+-го ранга"))
+    end
+	if text:find("Вы повысили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
+        sendDiscord("rankpovismembers", self.nick, text:match("Вы повысили игрока .+ до .+-го ранга"))
+	end
+	if text:find("%{FFFFFF%}На счету вашей организации %{42B02C%}.+%{FFFFFF%}") then 
+        sendDiscord("kaznainfo", self.nick, text:match("%{FFFFFF%}На счету вашей организации %{42B02C%}(.+)%{FFFFFF%}"))
 	end
 end
 
@@ -104,6 +118,8 @@ function sendDiscord(type, nick_first, nick_second, reason)
     local month = current_date.month
     local day = current_date.day
     local year = current_date.year
+	local hour = current_hour
+	local minute = current_minute
     local data = {}
     if type == "invite" then
         data = {
@@ -111,11 +127,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['embeds'] = {
                 {
                     ['title'] = "Инвайт",
-                    ['description'] = ("**Ник руководителя:** %s\n**Ник игрока которого приняли:** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, day, month, year), 
+                    ['description'] = ("**Ник руководителя:** %s\n**Ник игрока которого приняли:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
                     ['color'] = 16711680,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     elseif type == "warn" then
@@ -124,11 +140,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
             {
                 ['title'] = "Выдача выговора",
-                ['description'] = ("**Ник руководителя:** %s\n**Ник кому выдали:** %s\n**Причина:** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, reason, day, month, year), 
+                ['description'] = ("**Ник руководителя:** %s\n**Ник кому выдали:** %s\n**Причина:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, reason, day, month, year), 
                 ['color'] = 982784,
             }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     elseif type == "unwarn" then
@@ -137,11 +153,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
                 {
                     ['title'] = "Снятие выговора",
-                    ['description'] = ("**Ник руководителя:** %s\n**Ник кому сняли:** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, day, month, year), 
+                    ['description'] = ("**Ник руководителя:** %s\n**Ник кому сняли:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
                     ['color'] = 982784,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     elseif type == "uninvite" then
@@ -150,11 +166,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
                 {
                     ['title'] = "Выгнал из фракции",
-                    ['description'] = ("**Ник руководителя:** %s\n**Ник кого выгнали из фракции:** %s\n**Причина: ** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, reason, day, month, year), 
+                    ['description'] = ("**Ник руководителя:** %s\n**Ник кого выгнали из фракции:** %s\n**Причина: ** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, reason, day, month, year), 
                     ['color'] = 15017355,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     elseif type == "blacklist" then
@@ -163,11 +179,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
                 {
                     ['title'] = "Внесение в Чёрный список",
-                    ['description'] = ("**Ник руководителя:** %s\n**Ник кого занесли в ЧС:** %s\n**Причина: ** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, reason, day, month, year), 
+                    ['description'] = ("**Ник руководителя:** %s\n**Ник кого занесли в ЧС:** %s\n**Причина: ** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, reason, day, month, year), 
                     ['color'] = 13567,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     elseif type == "withdraw" then
@@ -176,11 +192,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
                 {
                     ['title'] = "Пополнение организации",
-                    ['description'] = ("**Ник:** %s\n**Сумма: ** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, reason, day, month, year), 
+                    ['description'] = ("**Ник:** %s\n**Сумма: ** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, reason, day, month, year), 
                     ['color'] = 16514816,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     elseif type == "withdrawal" then
@@ -189,11 +205,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
                 {
                     ['title'] = "Снятие с организации",
-                    ['description'] = ("**Ник:** %s\n**Сумма: ** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, reason, day, month, year), 
+                    ['description'] = ("**Ник:** %s\n**Сумма: ** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, reason, day, month, year), 
                     ['color'] = 16514816,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
 	elseif type == "unblacklist" then
@@ -202,11 +218,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
                 {
                     ['title'] = "Вынесение из Чёрного списка",
-                    ['description'] = ("**Ник руководителя:** %s\n**Ник кого вынесли в ЧС:** %s\n**Причина: ** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, reason, day, month, year), 
+                    ['description'] = ("**Ник руководителя:** %s\n**Ник кого вынесли в ЧС:** %s\n**Причина: ** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, reason, day, month, year), 
                     ['color'] = 13567,
                 }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
 	elseif type == "rankponiz" then
@@ -215,11 +231,11 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
             {
                 ['title'] = "Понижение",
-                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, day, month, year), 
+                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
                 ['color'] = 14287103,
             }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
 	elseif type == "rankpovis" then
@@ -228,11 +244,50 @@ function sendDiscord(type, nick_first, nick_second, reason)
             ['embeds'] = {
             {
                 ['title'] = "Повышение",
-                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s:%s:%s**\n\n\n***Script dev. Lana Rey and Alan Butler***"):format(nick_first, nick_second, day, month, year), 
+                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
                 ['color'] = 14287103,
             }
             },
-            ['username'] = 'Jefferson Bot',
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['tts'] = false,
+        }
+	elseif type == "rankponizmembers" then
+        data = {
+            ['content'] = '',
+            ['embeds'] = {
+            {
+                ['title'] = "Понижение",
+                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
+                ['color'] = 14287103,
+            }
+            },
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['tts'] = false,
+        }
+	elseif type == "rankpovismembers" then
+        data = {
+            ['content'] = '',
+            ['embeds'] = {
+            {
+                ['title'] = "Повышение",
+                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
+                ['color'] = 14287103,
+            }
+            },
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['tts'] = false,
+        }
+	elseif type == "kaznainfo" then
+        data = {
+            ['content'] = '',
+            ['embeds'] = {
+            {
+                ['title'] = "Информация о состоянии казны",
+                ['description'] = ("**Ник руководителя:** %s\n**Сумма:** %s\n\n**Дата: `%s.%s.%s`**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
+                ['color'] = 14836992,
+            }
+            },
+            ['username'] = 'Jefferson Bot | Версия: 1.3',
             ['tts'] = false,
         }
     end
