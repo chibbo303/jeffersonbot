@@ -1,5 +1,5 @@
 script_name('Jefferson Bot') 
-script_version("1.3")
+script_version("1.3.1")
 script_properties("work-in-pause")
 
 require 'lib.sampfuncs'
@@ -53,7 +53,7 @@ function main()
 	--Команды
 	 
 	----
-    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.3")
+    tag("Скрипт успешно запущен | Версия скрипта: {04a6ff}1.3.1")
 	tag2("Авторы скрипта: {04a6ff}Alan Butler, Elizabeth Bathory")
 	autoupdate("https://raw.githubusercontent.com/chibbo303/jeffersonbot/main/version.json", '['..string.upper(thisScript().name)..']: ')
 	--autoupdate("https://drive.usercontent.google.com/download?id=1vL7R2kjiDNLQv99BGjFV2WUKUK88dD_G&export=download&authuser=0&confirm=t&uuid=985e82a3-69f0-4fc2-904b-a89369b48196&at=APZUnTV1nJ33DWt_0IbUZMqr37fw:1704181967897", '['..string.upper(thisScript().name)..']: ')
@@ -73,7 +73,7 @@ end
 function ev.onServerMessage(color, text)
     if text:find("Приветствуем нового члена нашей организации .+%, которого пригласил%: .+%[%d+%]%.") and text:match("Приветствуем нового члена нашей организации .+%, которого пригласил%: (.+)%[%d+%]%.") == self.nick then
         sendDiscord("invite", text:match("Приветствуем нового члена нашей организации .+%, которого пригласил%: (.+)%[%d+%]%."), text:match("Приветствуем нового члена нашей организации (.+)%, которого пригласил%: .+%[%d+%]%."))
-    end         --Вы дали выговор игроку .+ с причиной 1 
+    end
     if text:find("Вы дали выговор игроку .+ с причиной .+") then
         sendDiscord("warn", self.nick, text:match("Вы дали выговор игроку (.+) с причиной .+"), text:match("Вы дали выговор игроку .+ с причиной (.+)"))
     end
@@ -101,12 +101,6 @@ function ev.onServerMessage(color, text)
 	if text:find("Вы повысили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
         sendDiscord("rankpovis", self.nick, text:match("Вы повысили игрока .+ до .+ ранга"))
 	end
-	if text:find("Вы понизили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankponizmembers", self.nick, text:match("Вы понизили игрока .+ до .+-го ранга"))
-    end
-	if text:find("Вы повысили игрока .+ до .+ ранга") then --Вы понизили игрока Viktor_Trilliant до 6 ранга | Вы повысили игрока Viktor_Trilliant до 8 ранга
-        sendDiscord("rankpovismembers", self.nick, text:match("Вы повысили игрока .+ до .+-го ранга"))
-	end
 	if text:find("%{FFFFFF%}На счету вашей организации %{42B02C%}.+%{FFFFFF%}") then 
         sendDiscord("kaznainfo", self.nick, text:match("%{FFFFFF%}На счету вашей организации %{42B02C%}(.+)%{FFFFFF%}"))
 	end
@@ -131,7 +125,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 16711680,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     elseif type == "warn" then
@@ -144,7 +138,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 982784,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     elseif type == "unwarn" then
@@ -157,7 +151,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 982784,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     elseif type == "uninvite" then
@@ -170,7 +164,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 15017355,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     elseif type == "blacklist" then
@@ -183,7 +177,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 13567,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     elseif type == "withdraw" then
@@ -196,7 +190,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 16514816,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     elseif type == "withdrawal" then
@@ -209,7 +203,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 16514816,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
 	elseif type == "unblacklist" then
@@ -222,7 +216,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 13567,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
 	elseif type == "rankponiz" then
@@ -235,7 +229,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 14287103,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
 	elseif type == "rankpovis" then
@@ -248,33 +242,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 14287103,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
-            ['tts'] = false,
-        }
-	elseif type == "rankponizmembers" then
-        data = {
-            ['content'] = '',
-            ['embeds'] = {
-            {
-                ['title'] = "Понижение",
-                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
-                ['color'] = 14287103,
-            }
-            },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
-            ['tts'] = false,
-        }
-	elseif type == "rankpovismembers" then
-        data = {
-            ['content'] = '',
-            ['embeds'] = {
-            {
-                ['title'] = "Повышение",
-                ['description'] = ("**Ник руководителя:** %s\n**Сообщение:** %s\n\n**Дата: %s.%s.%s**\n\n\n`Script dev. Elizabeth Bathory, Alan Butler`"):format(nick_first, nick_second, day, month, year), 
-                ['color'] = 14287103,
-            }
-            },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
 	elseif type == "kaznainfo" then
@@ -287,7 +255,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 14836992,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3',
+            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
             ['tts'] = false,
         }
     end
