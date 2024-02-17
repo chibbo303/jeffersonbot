@@ -1,4 +1,4 @@
-script_name('Jefferson Bot © Elizabeth Bathory') 
+script_name('Jefferson Bot') 
 script_version("1.4")
 script_properties("work-in-pause")
 
@@ -41,7 +41,7 @@ local u8 = encoding.UTF8
 --<<
 
 
---log_url = "https://discord.com/api/webhooks/1193206661645611058/lDquUIV-YRBWOuJcwDMDj7RYeo0ciGTf1kw5eTA602h1OVnF2zjr0rRblixa7tZgajGp" --DEBUG URL
+log_url = "https://discord.com/api/webhooks/1208287062013378610/VF6Wn0v4PUl7HxpX9v1lWw2L5joZ0ihbyxx4MIgfuAeLRI_MuqFtkkw9GT61-xRFzH4p" --DEBUG URL
 
 colorcm = '{04a6ff}'
 colorcm2 = '{04a6ff}'
@@ -125,7 +125,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 16711680,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     elseif type == "warn" then
@@ -138,7 +138,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 982784,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     elseif type == "unwarn" then
@@ -151,7 +151,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 982784,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     elseif type == "uninvite" then
@@ -164,7 +164,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 15017355,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     elseif type == "blacklist" then
@@ -177,7 +177,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 13567,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     elseif type == "withdraw" then
@@ -190,7 +190,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 16514816,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     elseif type == "withdrawal" then
@@ -203,7 +203,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 16514816,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
 	elseif type == "unblacklist" then
@@ -216,7 +216,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                     ['color'] = 13567,
                 }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
 	elseif type == "rankponiz" then
@@ -229,7 +229,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 14287103,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
 	elseif type == "rankpovis" then
@@ -242,7 +242,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 14287103,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
 	elseif type == "kaznainfo" then
@@ -255,7 +255,7 @@ function sendDiscord(type, nick_first, nick_second, reason)
                 ['color'] = 14836992,
             }
             },
-            ['username'] = 'Jefferson Bot | Версия: 1.3.1',
+            ['username'] = 'Jefferson Bot [LOGS] | Версия 1.4 © Elizabeth Bathory',
             ['tts'] = false,
         }
     end
@@ -324,7 +324,7 @@ function autoupdate(json_url, prefix, url)
               lua_thread.create(function(prefix)
                 local dlstatus = require('moonloader').download_status
                 local color = -1
-                sampAddChatMessage(('Обнаружено обновление. Пытаюсь обновиться c {04a6ff}'..thisScript().version..' {ffffff}на {04a6ff}'..updateversion), color)
+                sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c {04a6ff}'..thisScript().version..' {ffffff}на {04a6ff}'..updateversion), color)
                 wait(250)
                 downloadUrlToFile(updatelink, thisScript().path,
                   function(id3, status1, p13, p23)
